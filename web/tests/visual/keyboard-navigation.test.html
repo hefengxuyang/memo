@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard Navigation Visual Test</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/interactive-states.css">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components/task-form.css">
+  <link rel="stylesheet" href="../../css/components/task-item.css">
+  <link rel="stylesheet" href="../../css/components/notification.css">
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .test-section {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background-color: var(--color-background);
+    }
+    
+    .test-section h2 {
+      margin-top: 0;
+      color: var(--color-primary);
+      font-size: var(--font-size-xl);
+    }
+    
+    .test-instructions {
+      background-color: var(--color-primary-light);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+    }
+    
+    .test-instructions h3 {
+      margin-top: 0;
+      font-size: var(--font-size-base);
+      color: var(--color-text-primary);
+    }
+    
+    .test-instructions ul {
+      margin: 0.5rem 0 0 1.5rem;
+    }
+    
+    .test-instructions li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .keyboard-hint {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+    }
+    
+    .success-indicator {
+      color: var(--color-success);
+      font-weight: var(--font-weight-semibold);
+    }
+    
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+      background-color: var(--color-background);
+    }
+    
+    .task-item__checkbox {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .task-item__content {
+      flex: 1;
+    }
+    
+    .task-item__title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      margin: 0 0 0.25rem 0;
+    }
+    
+    .task-item__description {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+    
+    .task-item__delete {
+      padding: 0.5rem;
+      background-color: var(--color-error);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: var(--font-size-lg);
+      line-height: 1;
+    }
+    
+    .task-item--completed .task-item__title {
+      text-decoration: line-through;
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <h1>Keyboard Navigation Visual Test</h1>
+  <p>This page tests keyboard navigation functionality. Use your keyboard to interact with the elements below.</p>
+
+  <!-- Test 1: Tab Navigation -->
+  <div class="test-section">
+    <h2>Test 1: Tab Navigation</h2>
+    <div class="test-instructions">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Press <span class="keyboard-hint">Tab</span> to navigate through all interactive elements</li>
+        <li>Verify that each element shows a visible focus indicator (blue outline)</li>
+        <li>Verify the tab order is logical: Title → Description → Submit → Checkbox → Delete</li>
+        <li>Press <span class="keyboard-hint">Shift + Tab</span> to navigate backwards</li>
+      </ul>
+    </div>
+    
+    <div id="tab-test-form"></div>
+    
+    <div style="margin-top: 1rem;">
+      <div class="task-item">
+        <input type="checkbox" class="task-item__checkbox" id="test-checkbox" aria-label="Test task checkbox">
+        <div class="task-item__content">
+          <h3 class="task-item__title">Sample Task</h3>
+          <p class="task-item__description">This is a sample task for testing</p>
+        </div>
+        <button class="task-item__delete" aria-label="Delete sample task">×</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test 2: Enter Key Form Submission -->
+  <div class="test-section">
+    <h2>Test 2: Enter Key Form Submission</h2>
+    <div class="test-instructions">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Type a task title in the input field</li>
+        <li>Press <span class="keyboard-hint">Enter</span> while focused on the title input</li>
+        <li>Verify the form submits and shows a success notification</li>
+        <li>Try pressing <span class="keyboard-hint">Shift + Enter</span> - it should NOT submit</li>
+      </ul>
+    </div>
+    
+    <div id="enter-test-form"></div>
+    <div id="enter-test-result" style="margin-top: 1rem; padding: 1rem; background-color: var(--color-background-alt); border-radius: var(--radius-md); display: none;">
+      <span class="success-indicator">✓ Form submitted successfully!</span>
+    </div>
+  </div>
+
+  <!-- Test 3: Escape Key Notification Dismissal -->
+  <div class="test-section">
+    <h2>Test 3: Escape Key Notification Dismissal</h2>
+    <div class="test-instructions">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Click the buttons below to show notifications</li>
+        <li>Press <span class="keyboard-hint">Esc</span> to close the most recent notification</li>
+        <li>Verify that notifications close one at a time (most recent first)</li>
+        <li>You can also click the × button to close notifications</li>
+      </ul>
+    </div>
+    
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button id="show-success" class="task-form__submit">Show Success</button>
+      <button id="show-error" class="task-form__submit" style="background-color: var(--color-error);">Show Error</button>
+      <button id="show-info" class="task-form__submit" style="background-color: var(--color-info);">Show Info</button>
+    </div>
+  </div>
+
+  <!-- Test 4: Focus Indicators -->
+  <div class="test-section">
+    <h2>Test 4: Focus Indicators</h2>
+    <div class="test-instructions">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Use <span class="keyboard-hint">Tab</span> to focus each element below</li>
+        <li>Verify that each element has a clear, visible focus indicator</li>
+        <li>The focus indicator should be a blue outline with some offset</li>
+        <li>Try clicking with mouse - focus indicator should still appear</li>
+      </ul>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <button class="task-form__submit">Button Focus Test</button>
+      <input type="text" placeholder="Input Focus Test" style="padding: 0.5rem;">
+      <textarea placeholder="Textarea Focus Test" rows="3" style="padding: 0.5rem;"></textarea>
+      <label style="display: flex; align-items: center; gap: 0.5rem;">
+        <input type="checkbox">
+        <span>Checkbox Focus Test</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Test 5: Space Key Checkbox Toggle -->
+  <div class="test-section">
+    <h2>Test 5: Space Key Checkbox Toggle</h2>
+    <div class="test-instructions">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Use <span class="keyboard-hint">Tab</span> to focus the checkbox</li>
+        <li>Press <span class="keyboard-hint">Space</span> to toggle the checkbox</li>
+        <li>Verify the checkbox state changes and the task appearance updates</li>
+      </ul>
+    </div>
+    
+    <div id="space-test-task"></div>
+  </div>
+
+  <!-- Notification Container -->
+  <div id="notification-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module">
+    import { TaskFormComponent } from '../../js/components/task-form.js';
+    import { NotificationComponent } from '../../js/components/notification.js';
+    import { TaskItemComponent } from '../../js/components/task-item.js';
+
+    // Initialize notification component
+    const notification = new NotificationComponent(document.getElementById('notification-container'));
+
+    // Test 1: Tab Navigation Form
+    const tabTestService = {
+      createTask: async (title, description) => {
+        notification.showSuccess('Tab test form submitted!');
+      }
+    };
+    const tabTestForm = new TaskFormComponent(document.getElementById('tab-test-form'), tabTestService);
+    tabTestForm.render();
+
+    // Test 2: Enter Key Form
+    const enterTestService = {
+      createTask: async (title, description) => {
+        notification.showSuccess('Form submitted with Enter key!');
+        document.getElementById('enter-test-result').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('enter-test-result').style.display = 'none';
+        }, 3000);
+      }
+    };
+    const enterTestForm = new TaskFormComponent(document.getElementById('enter-test-form'), enterTestService);
+    enterTestForm.render();
+
+    // Test 3: Notification Buttons
+    document.getElementById('show-success').addEventListener('click', () => {
+      notification.showSuccess('This is a success notification. Press Esc to close.');
+    });
+
+    document.getElementById('show-error').addEventListener('click', () => {
+      notification.showError('This is an error notification. Press Esc to close.');
+    });
+
+    document.getElementById('show-info').addEventListener('click', () => {
+      notification.showInfo('This is an info notification. Press Esc to close.');
+    });
+
+    // Test 5: Space Key Checkbox
+    let spaceTestCompleted = false;
+    const spaceTestHandlers = {
+      onToggle: (id) => {
+        spaceTestCompleted = !spaceTestCompleted;
+        renderSpaceTest();
+        notification.showSuccess(`Task ${spaceTestCompleted ? 'completed' : 'uncompleted'} with Space key!`);
+      },
+      onDelete: (id) => {
+        notification.showInfo('Delete button clicked!');
+      }
+    };
+
+    function renderSpaceTest() {
+      const container = document.getElementById('space-test-task');
+      container.innerHTML = '';
+      const taskItem = TaskItemComponent.render(
+        {
+          id: 1,
+          title: 'Press Space to toggle this task',
+          description: 'Use Tab to focus the checkbox, then press Space',
+          completed: spaceTestCompleted,
+          created_at: new Date().toISOString()
+        },
+        spaceTestHandlers
+      );
+      container.appendChild(taskItem);
+    }
+
+    renderSpaceTest();
+
+    // Show initial notification
+    setTimeout(() => {
+      notification.showInfo('Welcome! Use Tab to navigate and Esc to close notifications.');
+    }, 500);
+  </script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+/**
+ * Task Edit Component Styles
+ * 
+ * Modal dialog for editing tasks with modern, clean design
+ */
+
+/* Modal Overlay */
+.task-edit {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-index-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn var(--transition-base);
+}
+
+.task-edit__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  animation: fadeIn var(--transition-base);
+}
+
+/* Modal Content */
+.task-edit__content {
+  position: relative;
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideInScale var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header */
+.task-edit__heading {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Form */
+.task-edit__form {
+  padding: var(--spacing-lg);
+}
+
+/* Form Fields */
+.task-edit__field {
+  margin-bottom: var(--spacing-lg);
+}
+
+.task-edit__label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.task-edit__required {
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Input Fields */
+.task-edit__input,
+.task-edit__textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: all var(--transition-fast);
+}
+
+.task-edit__input:hover:not(:disabled),
+.task-edit__textarea:hover:not(:disabled) {
+  border-color: var(--color-primary-light);
+}
+
+.task-edit__input:focus,
+.task-edit__textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.task-edit__input--error,
+.task-edit__textarea--error {
+  border-color: var(--color-error);
+}
+
+.task-edit__input--error:focus,
+.task-edit__textarea--error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.task-edit__input:disabled,
+.task-edit__textarea:disabled {
+  background-color: var(--color-background-alt);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.task-edit__textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Character Count */
+.task-edit__char-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-align: right;
+  margin-top: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Error Messages */
+.task-edit__error {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  margin-top: var(--spacing-xs);
+  display: none;
+  animation: slideDown var(--transition-fast);
+  font-weight: var(--font-weight-medium);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Action Buttons */
+.task-edit__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--spacing-lg);
+}
+
+.task-edit__cancel,
+.task-edit__submit {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  min-width: 100px;
+}
+
+/* Cancel Button */
+.task-edit__cancel {
+  background-color: var(--color-background);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.task-edit__cancel:hover:not(:disabled) {
+  background-color: var(--color-background-alt);
+  border-color: var(--color-text-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.task-edit__cancel:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.task-edit__cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Submit Button */
+.task-edit__submit {
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  color: white;
+  position: relative;
+}
+
+.task-edit__submit:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.task-edit__submit:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.task-edit__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.task-edit__submit-loading {
+  display: none;
+}
+
+/* Focus Styles */
+.task-edit__cancel:focus-visible,
+.task-edit__submit:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 639px) {
+  .task-edit__content {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .task-edit__heading {
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-md);
+  }
+  
+  .task-edit__form {
+    padding: var(--spacing-md);
+  }
+  
+  .task-edit__actions {
+    flex-direction: column-reverse;
+  }
+  
+  .task-edit__cancel,
+  .task-edit__submit {
+    width: 100%;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 640px) {
+  .task-edit__content {
+    width: 85%;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .task-edit__content {
+    width: 600px;
+  }
+}

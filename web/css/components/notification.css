@@ -1,0 +1,131 @@
+/**
+ * Notification Component Styles
+ */
+
+#notification-container {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 400px;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  animation: slideIn var(--transition-base);
+  background-color: white;
+  border-left: 4px solid;
+}
+
+.notification.success {
+  border-left-color: var(--color-success);
+}
+
+.notification.error {
+  border-left-color: var(--color-error);
+}
+
+.notification.info {
+  border-left-color: var(--color-info);
+}
+
+.notification-icon {
+  flex-shrink: 0;
+  font-size: var(--font-size-xl);
+}
+
+.notification.success .notification-icon {
+  color: var(--color-success);
+}
+
+.notification.error .notification-icon {
+  color: var(--color-error);
+}
+
+.notification.info .notification-icon {
+  color: var(--color-info);
+}
+
+.notification-content {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.notification-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.notification-close:hover {
+  background-color: var(--color-background-alt);
+  color: var(--color-text-primary);
+}
+
+.notification-close:active {
+  transform: scale(0.9);
+}
+
+.notification-close:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.notification-close:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.notification-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.notification.closing {
+  animation: fadeOut var(--transition-base);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 639px) {
+  #notification-container {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    left: var(--spacing-sm);
+    max-width: none;
+  }
+}

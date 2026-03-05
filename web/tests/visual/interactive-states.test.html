@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive States Visual Test</title>
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/interactive-states.css">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/components/task-form.css">
+  <link rel="stylesheet" href="../../css/components/task-item.css">
+  <link rel="stylesheet" href="../../css/components/notification.css">
+  <style>
+    body {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .test-section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-background);
+    }
+    .test-section h2 {
+      margin-bottom: 1rem;
+      color: var(--color-primary);
+    }
+    .test-section p {
+      margin-bottom: 1rem;
+      color: var(--color-text-secondary);
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .test-item {
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .test-item h3 {
+      font-size: var(--font-size-sm);
+      margin-bottom: 0.5rem;
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive States Visual Test</h1>
+  <p>Test all interactive states: hover, focus, active, and disabled</p>
+
+  <!-- Button States -->
+  <section class="test-section">
+    <h2>Button States</h2>
+    <p>Hover, click, tab to focus, and observe disabled state</p>
+    <div class="test-grid">
+      <div class="test-item">
+        <h3>Normal Button</h3>
+        <button class="task-form-button">Click Me</button>
+      </div>
+      <div class="test-item">
+        <h3>Disabled Button</h3>
+        <button class="task-form-button" disabled>Disabled</button>
+      </div>
+      <div class="test-item">
+        <h3>Delete Button</h3>
+        <button class="task-item__delete" aria-label="Delete">×</button>
+      </div>
+      <div class="test-item">
+        <h3>Disabled Delete</h3>
+        <button class="task-item__delete" disabled aria-label="Delete">×</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Input States -->
+  <section class="test-section">
+    <h2>Input States</h2>
+    <p>Hover, focus, type, and observe disabled state</p>
+    <div class="test-grid">
+      <div class="test-item">
+        <h3>Normal Input</h3>
+        <input type="text" class="task-form-input" placeholder="Type here...">
+      </div>
+      <div class="test-item">
+        <h3>Disabled Input</h3>
+        <input type="text" class="task-form-input" disabled placeholder="Disabled">
+      </div>
+      <div class="test-item">
+        <h3>Error Input</h3>
+        <input type="text" class="task-form-input error" placeholder="Error state">
+      </div>
+      <div class="test-item">
+        <h3>Textarea</h3>
+        <textarea class="task-form-textarea" placeholder="Type here..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checkbox States -->
+  <section class="test-section">
+    <h2>Checkbox States</h2>
+    <p>Hover, click, tab to focus, and observe disabled state</p>
+    <div class="test-grid">
+      <div class="test-item">
+        <h3>Normal Checkbox</h3>
+        <input type="checkbox" class="task-item__checkbox" id="cb1">
+        <label for="cb1">Unchecked</label>
+      </div>
+      <div class="test-item">
+        <h3>Checked Checkbox</h3>
+        <input type="checkbox" class="task-item__checkbox" id="cb2" checked>
+        <label for="cb2">Checked</label>
+      </div>
+      <div class="test-item">
+        <h3>Disabled Checkbox</h3>
+        <input type="checkbox" class="task-item__checkbox" id="cb3" disabled>
+        <label for="cb3">Disabled</label>
+      </div>
+      <div class="test-item">
+        <h3>Disabled Checked</h3>
+        <input type="checkbox" class="task-item__checkbox" id="cb4" disabled checked>
+        <label for="cb4">Disabled Checked</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Task Item States -->
+  <section class="test-section">
+    <h2>Task Item States</h2>
+    <p>Hover over task items to see interactive effects</p>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div class="task-item">
+        <input type="checkbox" class="task-item__checkbox">
+        <div class="task-item__content">
+          <h3 class="task-item__title">Active Task (Hover Me)</h3>
+          <p class="task-item__description">This is a normal active task</p>
+          <span class="task-item__timestamp">Created: 2024-01-15 10:30</span>
+        </div>
+        <button class="task-item__delete" aria-label="Delete task">×</button>
+      </div>
+      
+      <div class="task-item task-item--completed">
+        <input type="checkbox" class="task-item__checkbox" checked>
+        <div class="task-item__content">
+          <h3 class="task-item__title">Completed Task</h3>
+          <p class="task-item__description">This task is completed</p>
+          <span class="task-item__timestamp">Created: 2024-01-15 10:30</span>
+        </div>
+        <button class="task-item__delete" aria-label="Delete task">×</button>
+      </div>
+      
+      <div class="task-item task-item--loading">
+        <input type="checkbox" class="task-item__checkbox" disabled>
+        <div class="task-item__content">
+          <h3 class="task-item__title">Loading Task</h3>
+          <p class="task-item__description">This task is in loading state</p>
+          <span class="task-item__timestamp">Created: 2024-01-15 10:30</span>
+        </div>
+        <button class="task-item__delete" disabled aria-label="Delete task">×</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notification States -->
+  <section class="test-section">
+    <h2>Notification States</h2>
+    <p>Hover and click close buttons</p>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div class="notification success">
+        <span class="notification-icon">✓</span>
+        <div class="notification-content">Success notification message</div>
+        <button class="notification-close" aria-label="Close">×</button>
+      </div>
+      
+      <div class="notification error">
+        <span class="notification-icon">✕</span>
+        <div class="notification-content">Error notification message</div>
+        <button class="notification-close" aria-label="Close">×</button>
+      </div>
+      
+      <div class="notification info">
+        <span class="notification-icon">ℹ</span>
+        <div class="notification-content">Info notification message</div>
+        <button class="notification-close" aria-label="Close">×</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition Speed Test -->
+  <section class="test-section">
+    <h2>Transition Speed Test</h2>
+    <p>All transitions should complete within 100-300ms for responsive feedback</p>
+    <div class="test-grid">
+      <div class="test-item">
+        <h3>Fast (150ms)</h3>
+        <button class="task-form-button" style="transition-duration: var(--transition-fast);">Fast</button>
+      </div>
+      <div class="test-item">
+        <h3>Base (200ms)</h3>
+        <button class="task-form-button" style="transition-duration: var(--transition-base);">Base</button>
+      </div>
+      <div class="test-item">
+        <h3>Slow (300ms)</h3>
+        <button class="task-form-button" style="transition-duration: var(--transition-slow);">Slow</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reduced Motion Test -->
+  <section class="test-section">
+    <h2>Reduced Motion Test</h2>
+    <p>Enable "Reduce motion" in your OS accessibility settings to test</p>
+    <p style="color: var(--color-warning);">
+      ⚠️ When reduced motion is enabled, all animations should be minimal or instant
+    </p>
+    <button class="task-form-button" onclick="alert('Animations should be minimal with reduced motion enabled')">
+      Test Animation
+    </button>
+  </section>
+
+  <script>
+    // Add click handlers for demonstration
+    document.querySelectorAll('.notification-close').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.notification').style.opacity = '0';
+        setTimeout(() => {
+          e.target.closest('.notification').style.display = 'none';
+        }, 200);
+      });
+    });
+
+    // Log focus events for testing
+    document.querySelectorAll('button, input, textarea').forEach(el => {
+      el.addEventListener('focus', () => {
+        console.log('Focused:', el.className || el.tagName);
+      });
+    });
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      console.log('✓ Reduced motion is enabled');
+      document.body.insertAdjacentHTML('afterbegin', 
+        '<div style="background: var(--color-warning); color: white; padding: 1rem; text-align: center; margin-bottom: 1rem;">' +
+        '✓ Reduced Motion is ENABLED - Animations should be minimal' +
+        '</div>'
+      );
+    } else {
+      console.log('✗ Reduced motion is disabled');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+/**
+ * Task List Component Styles
+ */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Section Styles */
+.task-list__section {
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base);
+}
+
+.task-list__section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.task-list__header {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-md) 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.task-list__section--active .task-list__header {
+  border-bottom-color: var(--color-primary);
+}
+
+.task-list__section--completed .task-list__header {
+  border-bottom-color: var(--color-success);
+  color: var(--color-text-secondary);
+}
+
+/* Task Items Container */
+.task-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Empty State */
+.task-list__empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--color-border);
+  animation: fadeIn var(--transition-base);
+}
+
+.task-list__empty-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.task-list__empty-message {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Loading State */
+.task-list__loading {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  animation: fadeIn var(--transition-base);
+}
+
+.task-list__spinner {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto var(--spacing-md);
+  border: 4px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.task-list__loading-message {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Error State */
+.task-list__error {
+  background-color: #fef2f2;
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  text-align: center;
+  animation: fadeIn var(--transition-base);
+}
+
+.task-list__error-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-error);
+}
+
+.task-list__error-message {
+  font-size: var(--font-size-base);
+  color: var(--color-error);
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Mobile Responsive */
+@media (max-width: 639px) {
+  .task-list__section {
+    padding: var(--spacing-md);
+  }
+  
+  .task-list__empty,
+  .task-list__loading,
+  .task-list__error {
+    padding: var(--spacing-lg);
+  }
+}

@@ -1,0 +1,313 @@
+/**
+ * Interactive States Styles
+ * 
+ * Comprehensive interactive state styles for all UI elements
+ * Implements hover, focus, active, and disabled states with smooth transitions
+ * Supports prefers-reduced-motion for accessibility
+ */
+
+/* ============================================
+   Button Interactive States
+   ============================================ */
+
+button {
+  position: relative;
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast),
+              opacity var(--transition-fast);
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  filter: grayscale(0.3);
+}
+
+/* ============================================
+   Input Interactive States
+   ============================================ */
+
+input,
+textarea,
+select {
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background-color var(--transition-fast);
+}
+
+input:hover:not(:disabled):not(:focus),
+textarea:hover:not(:disabled):not(:focus),
+select:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-text-secondary);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--color-background-alt);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ============================================
+   Checkbox Interactive States
+   ============================================ */
+
+input[type="checkbox"] {
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+input[type="checkbox"]:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+input[type="checkbox"]:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+input[type="checkbox"]:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ============================================
+   Link Interactive States
+   ============================================ */
+
+a {
+  transition: color var(--transition-fast),
+              text-decoration-color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+a:active {
+  color: var(--color-primary);
+  opacity: 0.8;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   Card/Container Interactive States
+   ============================================ */
+
+.interactive-card {
+  transition: box-shadow var(--transition-base),
+              transform var(--transition-base),
+              border-color var(--transition-base);
+}
+
+.interactive-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.interactive-card:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   Loading States
+   ============================================ */
+
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--color-primary-light);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   Ripple Effect (Optional Enhancement)
+   ============================================ */
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width var(--transition-base), height var(--transition-base);
+}
+
+.ripple:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* ============================================
+   Focus Indicators (Accessibility)
+   ============================================ */
+
+/* Remove default focus outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Show focus outline for keyboard users */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast focus for better visibility */
+@media (prefers-contrast: high) {
+  *:focus-visible {
+    outline-width: 3px;
+    outline-offset: 3px;
+  }
+}
+
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential transforms but remove animations */
+  button:active:not(:disabled) {
+    transform: none;
+  }
+  
+  input[type="checkbox"]:hover:not(:disabled),
+  input[type="checkbox"]:active:not(:disabled) {
+    transform: none;
+  }
+  
+  .interactive-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   Touch Device Optimizations
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch target sizes */
+  button,
+  input[type="checkbox"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  button:hover:not(:disabled),
+  input:hover:not(:disabled),
+  textarea:hover:not(:disabled),
+  a:hover {
+    filter: none;
+    transform: none;
+  }
+  
+  /* Enhance active states for touch feedback */
+  button:active:not(:disabled) {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================
+   Dark Mode Support (Future Enhancement)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* Dark mode interactive states can be added here */
+  /* Currently using light mode only */
+}
+
+/* ============================================
+   High Contrast Mode Support
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  button:focus-visible,
+  input:focus,
+  textarea:focus,
+  a:focus-visible {
+    outline-width: 3px;
+  }
+  
+  button:disabled,
+  input:disabled,
+  textarea:disabled {
+    opacity: 0.5;
+    border: 2px dashed var(--color-border);
+  }
+}

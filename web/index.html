@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="简洁高效的备忘录管理应用">
+  <title>Memo - 备忘录管理</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/interactive-states.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/utilities.css">
+  <link rel="stylesheet" href="css/components/task-list.css">
+  <link rel="stylesheet" href="css/components/task-item.css">
+  <link rel="stylesheet" href="css/components/task-form.css">
+  <link rel="stylesheet" href="css/components/task-edit.css">
+  <link rel="stylesheet" href="css/components/notification.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Memo</h1>
+  </header>
+
+  <main class="app-main">
+    <section class="task-form-section" aria-label="创建新任务">
+      <div id="task-form"></div>
+    </section>
+
+    <section class="task-list-section" aria-label="任务列表">
+      <div id="task-list"></div>
+    </section>
+  </main>
+
+  <div id="notification-container" aria-live="polite" aria-atomic="true"></div>
+  <div id="task-edit-container" style="display: none;"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

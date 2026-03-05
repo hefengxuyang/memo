@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨浏览器视觉测试 - Memo</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/components/task-list.css">
+    <link rel="stylesheet" href="../../css/components/task-item.css">
+    <link rel="stylesheet" href="../../css/components/task-form.css">
+    <link rel="stylesheet" href="../../css/components/notification.css">
+    <style>
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: var(--color-primary);
+            font-size: var(--font-size-xl);
+        }
+        .test-section h3 {
+            margin-top: 1.5rem;
+            color: var(--color-text-primary);
+            font-size: var(--font-size-lg);
+        }
+        .test-info {
+            background: var(--color-background-alt);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            border: 1px solid var(--color-border);
+            margin: 0.5rem;
+            border-radius: 4px;
+        }
+        .color-label {
+            display: block;
+            text-align: center;
+            font-size: var(--font-size-xs);
+            margin-top: 0.25rem;
+        }
+        .spacing-demo {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        .spacing-box {
+            background: var(--color-primary-light);
+            border: 1px solid var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-sm);
+        }
+        .button-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+        <h1>跨浏览器视觉测试</h1>
+        
+        <div class="test-info">
+            <strong>浏览器信息:</strong><br>
+            User Agent: <span id="userAgent"></span><br>
+            视口尺寸: <span id="viewport"></span><br>
+            屏幕尺寸: <span id="screen"></span><br>
+            设备像素比: <span id="dpr"></span>
+        </div>
+
+        <!-- Color System Test -->
+        <div class="test-section">
+            <h2>1. 颜色系统测试</h2>
+            <p>验证 CSS 变量和颜色一致性</p>
+            
+            <h3>主要颜色</h3>
+            <div style="display: flex; flex-wrap: wrap;">
+                <div>
+                    <div class="color-swatch" style="background: var(--color-primary);"></div>
+                    <span class="color-label">Primary</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-primary-hover);"></div>
+                    <span class="color-label">Primary Hover</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-primary-light);"></div>
+                    <span class="color-label">Primary Light</span>
+                </div>
+            </div>
+
+            <h3>状态颜色</h3>
+            <div style="display: flex; flex-wrap: wrap;">
+                <div>
+                    <div class="color-swatch" style="background: var(--color-success);"></div>
+                    <span class="color-label">Success</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-error);"></div>
+                    <span class="color-label">Error</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-warning);"></div>
+                    <span class="color-label">Warning</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-info);"></div>
+                    <span class="color-label">Info</span>
+                </div>
+            </div>
+
+            <h3>中性颜色</h3>
+            <div style="display: flex; flex-wrap: wrap;">
+                <div>
+                    <div class="color-swatch" style="background: var(--color-text-primary);"></div>
+                    <span class="color-label">Text Primary</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-text-secondary);"></div>
+                    <span class="color-label">Text Secondary</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-text-disabled);"></div>
+                    <span class="color-label">Text Disabled</span>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: var(--color-border);"></div>
+                    <span class="color-label">Border</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography Test -->
+        <div class="test-section">
+            <h2>2. 排版测试</h2>
+            <p>验证字体、大小和行高</p>
+            
+            <div style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">
+                2XL Bold - 标题文本
+            </div>
+            <div style="font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold);">
+                XL Semibold - 副标题文本
+            </div>
+            <div style="font-size: var(--font-size-lg); font-weight: var(--font-weight-medium);">
+                LG Medium - 大号文本
+            </div>
+            <div style="font-size: var(--font-size-base); font-weight: var(--font-weight-normal);">
+                Base Normal - 正文文本 (默认)
+            </div>
+            <div style="font-size: var(--font-size-sm); font-weight: var(--font-weight-normal);">
+                SM Normal - 小号文本
+            </div>
+            <div style="font-size: var(--font-size-xs); font-weight: var(--font-weight-normal);">
+                XS Normal - 超小号文本
+            </div>
+        </div>
+
+        <!-- Spacing Test -->
+        <div class="test-section">
+            <h2>3. 间距系统测试</h2>
+            <p>验证间距变量</p>
+            
+            <div class="spacing-demo">
+                <div class="spacing-box" style="padding: var(--spacing-xs);">XS (4px)</div>
+                <div class="spacing-box" style="padding: var(--spacing-sm);">SM (8px)</div>
+                <div class="spacing-box" style="padding: var(--spacing-md);">MD (16px)</div>
+                <div class="spacing-box" style="padding: var(--spacing-lg);">LG (24px)</div>
+                <div class="spacing-box" style="padding: var(--spacing-xl);">XL (32px)</div>
+                <div class="spacing-box" style="padding: var(--spacing-2xl);">2XL (48px)</div>
+            </div>
+        </div>
+
+        <!-- Button States Test -->
+        <div class="test-section">
+            <h2>4. 按钮状态测试</h2>
+            <p>悬停、聚焦、激活和禁用状态</p>
+            
+            <div class="button-group">
+                <button class="btn btn-primary">主要按钮</button>
+                <button class="btn btn-primary" disabled>禁用按钮</button>
+                <button class="btn btn-secondary">次要按钮</button>
+                <button class="btn btn-danger">危险按钮</button>
+            </div>
+            
+            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                提示: 悬停、点击和使用 Tab 键聚焦按钮以测试所有状态
+            </p>
+        </div>
+
+        <!-- Form Elements Test -->
+        <div class="test-section">
+            <h2>5. 表单元素测试</h2>
+            <p>输入框、文本域和复选框</p>
+            
+            <form style="max-width: 500px;">
+                <div style="margin-bottom: var(--spacing-md);">
+                    <label for="test-input">文本输入框:</label>
+                    <input type="text" id="test-input" placeholder="输入一些文本..." class="form-input">
+                </div>
+                
+                <div style="margin-bottom: var(--spacing-md);">
+                    <label for="test-textarea">文本域:</label>
+                    <textarea id="test-textarea" rows="3" placeholder="输入多行文本..." class="form-textarea"></textarea>
+                </div>
+                
+                <div style="margin-bottom: var(--spacing-md);">
+                    <label>
+                        <input type="checkbox" class="form-checkbox">
+                        复选框选项
+                    </label>
+                </div>
+                
+                <div style="margin-bottom: var(--spacing-md);">
+                    <label for="test-input-error">带错误的输入框:</label>
+                    <input type="text" id="test-input-error" class="form-input error" value="无效输入">
+                    <span class="error-message">这是一个错误消息</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Task Item Test -->
+        <div class="test-section">
+            <h2>6. 任务项测试</h2>
+            <p>未完成和已完成任务的视觉样式</p>
+            
+            <div class="test-grid">
+                <div>
+                    <h3>未完成任务</h3>
+                    <div class="task-item" data-task-id="1">
+                        <input type="checkbox" class="task-checkbox" id="task-1">
+                        <div class="task-content">
+                            <label for="task-1" class="task-title">完成项目文档</label>
+                            <p class="task-description">编写技术设计文档和 API 文档</p>
+                            <span class="task-date">2024-01-15 10:30</span>
+                        </div>
+                        <button class="task-delete" aria-label="删除任务">×</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>已完成任务</h3>
+                    <div class="task-item completed" data-task-id="2">
+                        <input type="checkbox" class="task-checkbox" id="task-2" checked>
+                        <div class="task-content">
+                            <label for="task-2" class="task-title">代码审查</label>
+                            <p class="task-description">审查前端代码并提供反馈</p>
+                            <span class="task-date">2024-01-14 15:20</span>
+                        </div>
+                        <button class="task-delete" aria-label="删除任务">×</button>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                提示: 悬停在任务上查看删除按钮和悬停效果
+            </p>
+        </div>
+
+        <!-- Notification Test -->
+        <div class="test-section">
+            <h2>7. 通知测试</h2>
+            <p>成功、错误和信息通知</p>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="showNotification('success')">显示成功通知</button>
+                <button class="btn btn-primary" onclick="showNotification('error')">显示错误通知</button>
+                <button class="btn btn-primary" onclick="showNotification('info')">显示信息通知</button>
+            </div>
+            
+            <div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+        </div>
+
+        <!-- Responsive Layout Test -->
+        <div class="test-section">
+            <h2>8. 响应式布局测试</h2>
+            <p>调整浏览器窗口大小或使用开发者工具的设备模拟模式</p>
+            
+            <div class="test-grid">
+                <div style="background: var(--color-primary-light); padding: var(--spacing-md); border-radius: 4px;">
+                    <h3>网格项 1</h3>
+                    <p>这个网格应该在小屏幕上变成单列</p>
+                </div>
+                <div style="background: var(--color-primary-light); padding: var(--spacing-md); border-radius: 4px;">
+                    <h3>网格项 2</h3>
+                    <p>在大屏幕上显示多列</p>
+                </div>
+                <div style="background: var(--color-primary-light); padding: var(--spacing-md); border-radius: 4px;">
+                    <h3>网格项 3</h3>
+                    <p>自动适应可用空间</p>
+                </div>
+            </div>
+            
+            <div class="test-info" style="margin-top: 1rem;">
+                <strong>断点测试:</strong><br>
+                • 小屏幕 (&lt;640px): 单列布局<br>
+                • 中等屏幕 (640-1023px): 2列布局<br>
+                • 大屏幕 (≥1024px): 3列布局
+            </div>
+        </div>
+
+        <!-- Accessibility Test -->
+        <div class="test-section">
+            <h2>9. 可访问性测试</h2>
+            <p>键盘导航和焦点指示器</p>
+            
+            <div class="test-info">
+                <strong>键盘测试:</strong><br>
+                • 按 Tab 键在元素间导航<br>
+                • 按 Shift+Tab 反向导航<br>
+                • 按 Enter 激活按钮<br>
+                • 按 Space 切换复选框<br>
+                • 验证焦点指示器清晰可见
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" tabindex="0">按钮 1</button>
+                <button class="btn btn-primary" tabindex="0">按钮 2</button>
+                <button class="btn btn-primary" tabindex="0">按钮 3</button>
+                <input type="text" placeholder="输入框" tabindex="0" class="form-input" style="max-width: 200px;">
+            </div>
+        </div>
+
+        <!-- Animation Test -->
+        <div class="test-section">
+            <h2>10. 动画和过渡测试</h2>
+            <p>验证动画流畅性和 prefers-reduced-motion 支持</p>
+            
+            <button class="btn btn-primary" onclick="testAnimation()">触发动画</button>
+            
+            <div id="animation-box" style="
+                width: 100px;
+                height: 100px;
+                background: var(--color-primary);
+                margin: 1rem 0;
+                border-radius: 4px;
+                transition: transform 0.3s ease, background-color 0.3s ease;
+            "></div>
+            
+            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                注意: 如果系统设置了 "减少动画"，动画应该被禁用或大幅缩短
+            </p>
+        </div>
+
+        <!-- Edge Cases Test -->
+        <div class="test-section">
+            <h2>11. 边界情况测试</h2>
+            <p>长文本、特殊字符和极端情况</p>
+            
+            <h3>长文本任务</h3>
+            <div class="task-item" data-task-id="3">
+                <input type="checkbox" class="task-checkbox" id="task-3">
+                <div class="task-content">
+                    <label for="task-3" class="task-title">
+                        这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的任务标题，用于测试文本换行和溢出处理
+                    </label>
+                    <p class="task-description">
+                        这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长的任务描述，用于测试文本换行和溢出处理。
+                    </p>
+                    <span class="task-date">2024-01-15 10:30</span>
+                </div>
+                <button class="task-delete" aria-label="删除任务">×</button>
+            </div>
+            
+            <h3>特殊字符任务</h3>
+            <div class="task-item" data-task-id="4">
+                <input type="checkbox" class="task-checkbox" id="task-4">
+                <div class="task-content">
+                    <label for="task-4" class="task-title">
+                        Task with "quotes" &amp; &lt;special&gt; characters 🎉 ✅ 🚀
+                    </label>
+                    <p class="task-description">
+                        测试特殊字符: &lt;script&gt;alert('XSS')&lt;/script&gt; &amp; "quotes" &amp; 'apostrophes'
+                    </p>
+                    <span class="task-date">2024-01-15 10:30</span>
+                </div>
+                <button class="task-delete" aria-label="删除任务">×</button>
+            </div>
+        </div>
+
+        <!-- Test Summary -->
+        <div class="test-section" style="background: var(--color-background-alt);">
+            <h2>测试总结</h2>
+            <p>完成所有测试后，请验证:</p>
+            <ul>
+                <li>所有颜色正确显示且一致</li>
+                <li>字体大小和间距符合设计</li>
+                <li>按钮和表单元素在所有状态下正常工作</li>
+                <li>任务项样式正确（未完成和已完成）</li>
+                <li>通知正确显示和消失</li>
+                <li>响应式布局在不同屏幕尺寸下正常</li>
+                <li>键盘导航和焦点指示器正常工作</li>
+                <li>动画流畅且尊重用户偏好</li>
+                <li>长文本和特殊字符正确处理</li>
+                <li>没有控制台错误或警告</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Display browser information
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('viewport').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+        document.getElementById('screen').textContent = `${screen.width} x ${screen.height}`;
+        document.getElementById('dpr').textContent = window.devicePixelRatio;
+
+        // Update viewport size on resize
+        window.addEventListener('resize', () => {
+            document.getElementById('viewport').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+        });
+
+        // Notification function
+        function showNotification(type) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            const messages = {
+                success: '✓ 操作成功完成！',
+                error: '✗ 发生错误，请重试',
+                info: 'ℹ 这是一条信息通知'
+            };
+            
+            notification.innerHTML = `
+                <span>${messages[type]}</span>
+                <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            container.appendChild(notification);
+            
+            // Auto-dismiss after 3 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // Animation test
+        function testAnimation() {
+            const box = document.getElementById('animation-box');
+            box.style.transform = 'translateX(200px) rotate(360deg)';
+            box.style.backgroundColor = 'var(--color-success)';
+            
+            setTimeout(() => {
+                box.style.transform = 'translateX(0) rotate(0deg)';
+                box.style.backgroundColor = 'var(--color-primary)';
+            }, 1000);
+        }
+
+        // Log feature support
+        console.log('Browser Feature Support:');
+        console.log('- Fetch API:', typeof fetch !== 'undefined');
+        console.log('- Promise:', typeof Promise !== 'undefined');
+        console.log('- CSS Grid:', CSS.supports('display', 'grid'));
+        console.log('- CSS Flexbox:', CSS.supports('display', 'flex'));
+        console.log('- CSS Custom Properties:', CSS.supports('--test', '0'));
+        console.log('- ES6 Classes:', typeof class {} === 'function');
+        console.log('- ES6 Modules:', typeof import !== 'undefined');
+        console.log('- Async/Await:', (async () => {}).constructor.name === 'AsyncFunction');
+    </script>
+</body>
+</html>
